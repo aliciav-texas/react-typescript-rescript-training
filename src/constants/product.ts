@@ -1,4 +1,6 @@
-export const productDetails = [
+import { ProductList } from "./../types/products";
+
+export const productDetails: ProductList = [
   {
     id: "coffee",
     name: "bag of coffee",

@@ -4,29 +4,30 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import Container from "@material-ui/core/Container";
-import ProductTable from "../ProductTable/";
+import ProductTable from "../ProductTable";
 import { initialProductListWithTypeErrors } from "../../utils/mock";
 import {
   calculateTotalPrice,
   findIndexAndUpdateQuantity,
 } from "../../utils/cart";
-
-const App = () => {
-  const initialCartValue = "0";
+import { Product, ProductList } from "../../types/products";
+import { productDetails } from "../../constants/product";
+const App = (): JSX.Element => {
+  const initialCartValue = 0;
   const [cart, setCart] = useState(initialProductListWithTypeErrors);
   const [calculatedPrice, setCalculatedPrice] = useState(initialCartValue);
 
-  const deleteFromCart = (id) => {
+  const deleteFromCart = (id: string): void => {
     const updatedCart = findIndexAndUpdateQuantity(cart, id, 0);
     return setCart(updatedCart);
   };
 
-  const updateCart = (id, value) => {
+  const updateCart = (id: string, value: number): void => {
     const updatedCart = findIndexAndUpdateQuantity(cart, id, value);
     return setCart(updatedCart);
   };
 
-  const calculatePrice = () => {
+  const calculatePrice = (): void => {
     const totalPrice = calculateTotalPrice(cart, initialCartValue);
     setCalculatedPrice(totalPrice);
   };

@@ -8,35 +8,48 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import ProductRow from "../ProductRow";
 import "./index.css";
+import {
+  DeleteFromCartFunction,
+  Product,
+  ProductList,
+  UpdateCartFunction,
+} from "../../types";
 
-const ProductTable = ({ cart, deleteFromCart, updateCart }) => {
-  return (
-    <TableContainer component={Paper} className="product-table">
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Product Name</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Current Quantity</TableCell>
-            <TableCell align="right">New Quantity</TableCell>
-            <TableCell align="right">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {cart.map((product) => {
-            return (
-              <ProductRow
-                {...product}
-                deleteFromCart={deleteFromCart}
-                updateCart={updateCart}
-                key={product.id}
-              />
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-};
+// We can create an interface for the props and use the common react types we made
+interface ProductTableProps {
+  cart: ProductList;
+  deleteFromCart: DeleteFromCartFunction;
+  updateCart: UpdateCartFunction;
+}
+
+// We type our props utilizing the interface defined above
+const ProductTable = ({
+  cart,
+  deleteFromCart,
+  updateCart,
+}: ProductTableProps): JSX.Element => (
+  <TableContainer component={Paper} className="product-table">
+    <Table aria-label="simple table">
+      <TableHead>
+        <TableRow>
+          <TableCell>Product Name</TableCell>
+          <TableCell align="right">Price</TableCell>
+          <TableCell align="right">Current Quantity</TableCell>
+          <TableCell align="right">New Quantity</TableCell>
+          <TableCell align="right">Actions</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {cart.map((product: Product) => (
+          <ProductRow
+            {...product}
+            deleteFromCart={deleteFromCart}
+            updateCart={updateCart}
+          />
+        ))}
+      </TableBody>
+    </Table>
+  </TableContainer>
+);
 
 export default ProductTable;

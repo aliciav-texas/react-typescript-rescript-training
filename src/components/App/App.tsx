@@ -4,25 +4,35 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import Container from "@material-ui/core/Container";
-import ProductTable from "../ProductTable";
-import { initialProductListWithTypeErrors } from "../../utils/mock";
+import ProductTable from "../ProductTable/";
 import {
   calculateTotalPrice,
   findIndexAndUpdateQuantity,
 } from "../../utils/cart";
-import { Product, ProductList } from "../../types/products";
 import { productDetails } from "../../constants/product";
+// We can now import all our types from the main types/index.ts file
+import {
+  DeleteFromCartFunction,
+  UpdateCartFunction,
+  ProductList,
+} from "../../types";
+
 const App = (): JSX.Element => {
   const initialCartValue = 0;
-  const [cart, setCart] = useState(initialProductListWithTypeErrors);
-  const [calculatedPrice, setCalculatedPrice] = useState(initialCartValue);
+  const [cart, setCart] = useState<ProductList>(productDetails);
+  const [calculatedPrice, setCalculatedPrice] = useState<number>(
+    initialCartValue
+  );
 
-  const deleteFromCart = (id: string): void => {
+  // This file return void since it just invokes a function and does not return a value
+  // We can now use our new type definitions
+  const deleteFromCart: DeleteFromCartFunction = (id) => {
     const updatedCart = findIndexAndUpdateQuantity(cart, id, 0);
     return setCart(updatedCart);
   };
 
-  const updateCart = (id: string, value: number): void => {
+  // We can now use our new type definitions
+  const updateCart: UpdateCartFunction = (id, value) => {
     const updatedCart = findIndexAndUpdateQuantity(cart, id, value);
     return setCart(updatedCart);
   };

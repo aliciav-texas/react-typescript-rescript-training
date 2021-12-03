@@ -3,6 +3,16 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TextField from "@material-ui/core/TextField";
 import ProductActions from "../ProductActions";
+import {
+  Product,
+  DeleteFromCartFunction,
+  UpdateCartFunction,
+} from "../../types";
+
+interface ProductRowProps extends Product {
+  deleteFromCart: DeleteFromCartFunction;
+  updateCart: UpdateCartFunction;
+}
 
 const ProductRow = ({
   name,
@@ -12,7 +22,7 @@ const ProductRow = ({
   id,
   deleteFromCart,
   updateCart,
-}) => {
+}: ProductRowProps): JSX.Element => {
   const [newProductTotal, setNewProductTotal] = useState("");
   return (
     <TableRow key={name}>
